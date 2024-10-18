@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import swal from 'sweetalert'
 
 import { FieldValuesTypes, schemaForm } from '../model'
 import InputText from '@/shared/input-text'
@@ -41,15 +42,12 @@ export default function Form (): JSX.Element {
       body: JSON.stringify(data)
     })
 
-    console.log({ body })
-
-    const json = await body.json()
-
     if (body.ok) {
       toast.success('Usuario registrado exitosamente')
       await swal('Registrado!', 'Se ha enviado un correo con la confirmación de la inscripción al evento. Siga los pasos que se indican para completar el proceso.', 'success')
       reset()
     } else {
+      const json = await body?.json()
       toast.error(json.message)
       toast.error('Error al registrar el usuario')
     }

@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { FieldValuesTypes, schemaForm } from '../model'
 import InputText from '@/shared/input-text'
 
-import * as countries from '@/data/countries.json'
+import { countries } from '@/data/countries'
 
 const INITIAL_VALUES = {
   name: '',
@@ -30,7 +30,7 @@ export default function Form (): JSX.Element {
     defaultValues: INITIAL_VALUES
   })
 
-  const contriesEs = useMemo(() => countries.countries.map(c => c.es_name), [])
+  const contriesEs = useMemo(() => countries.map(c => c.es_name), [])
 
   const onSubmit = async (data: FieldValuesTypes): Promise<void> => {
     const body = await fetch('/api/users', {
@@ -40,6 +40,8 @@ export default function Form (): JSX.Element {
       },
       body: JSON.stringify(data)
     })
+
+    console.log({ body })
 
     const json = await body.json()
 
@@ -125,7 +127,7 @@ export default function Form (): JSX.Element {
         form='form-inscription'
         type='submit'
       >
-        register
+        Reservar cupo
       </button>
     </fieldset>
   )

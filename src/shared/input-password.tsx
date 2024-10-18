@@ -13,6 +13,7 @@ export default function InputPassword ({ label, ...attr }: Props): JSX.Element {
         {label}
         <div className='relative w-full mt-2'>
           <button
+            tabIndex={1}
             className='text-gray-400 absolute right-3 inset-y-0 my-auto active:text-gray-700'
             onClick={() => setPasswordHidden(!isPasswordHidden)}
           >
@@ -33,6 +34,7 @@ export default function InputPassword ({ label, ...attr }: Props): JSX.Element {
                     }
           </button>
           <input
+            tabIndex={0}
             type={isPasswordHidden ? 'password' : 'text'}
             className='w-full pr-12 pl-3 py-2 text-gray-700 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg'
             {...attr}

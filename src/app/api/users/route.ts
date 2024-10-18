@@ -3,7 +3,7 @@ import sgMail from '@sendgrid/mail'
 import { prisma } from '@/utils/prisma'
 import { UserData } from '@/types/user'
 
-async function sendEmail (user: UserData): Promise<{ statusEmail: number, headers: {}, error: Error | null }> {
+async function sendEmail (user: UserData): Promise<{ statusEmail: number, headers: HeadersInit | undefined, error: Error | null }> {
   await sgMail.setApiKey(process.env.SENGRID_API_KEY ?? '')
 
   const msg = {
@@ -63,16 +63,16 @@ async function sendEmail (user: UserData): Promise<{ statusEmail: number, header
     }
   } catch (error) {
     console.log({ error })
-    console.log(error.response.body)
+
     return {
       statusEmail: 500,
-      headers: {},
+      headers: undefined,
       error: error as Error
     }
   }
 }
 
-export async function POST (request: Request): Promise<NextResponse> {
+export async function POST (request: Request): Promise<NextResponse | undefined> {
   try {
     const body = await request.json()
 
@@ -83,9 +83,7 @@ export async function POST (request: Request): Promise<NextResponse> {
       }
     })
 
-    const { statusEmail, headers } = await sendEmail(body)
-
-    console.log({ statusEmail, headers })
+    const { headers } = await sendEmail(body)
 
     return NextResponse.json(created, {
       status: 201,
@@ -100,7 +98,7 @@ export async function POST (request: Request): Promise<NextResponse> {
   }
 }
 
-export async function GET (): Promise<NextResponse> {
+export async function GET (): Promise<NextResponse | undefined> {
   try {
     const created = await prisma.user.findMany()
 
@@ -116,7 +114,7 @@ export async function GET (): Promise<NextResponse> {
   }
 }
 
-export async function DELETE (request: Request): Promise<NextResponse> {
+export async function DELETE (request: Request): Promise<NextResponse | undefined> {
   try {
     const body = await request.json()
 
@@ -139,7 +137,7 @@ export async function DELETE (request: Request): Promise<NextResponse> {
   }
 }
 
-export async function PUT (request: Request): Promise<NextResponse> {
+export async function PUT (request: Request): Promise<NextResponse | undefined> {
   try {
     const body = await request.json()
 

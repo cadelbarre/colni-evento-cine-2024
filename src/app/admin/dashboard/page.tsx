@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import useSWR, { Fetcher } from 'swr'
 
 import { useAuthStore } from './store/auth-store'

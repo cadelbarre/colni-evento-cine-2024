@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import sgMail from '@sendgrid/mail'
 import { prisma } from '@/utils/prisma'
 import { UserData } from '@/types/user'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 
 async function sendEmail (user: UserData): Promise<{ statusEmail: number, headers: HeadersInit | undefined, error: Error | null }> {
   await sgMail.setApiKey(process.env.SENGRID_API_KEY ?? '')
@@ -55,7 +56,6 @@ async function sendEmail (user: UserData): Promise<{ statusEmail: number, header
   try {
     const response = await sgMail.send(msg)
 
-    console.log({ response })
     return {
       statusEmail: response[0].statusCode,
       headers: response[0].headers,
@@ -86,10 +86,16 @@ export async function POST (request: Request): Promise<NextResponse | undefined>
     const { headers } = await sendEmail(body)
 
     return NextResponse.json(created, {
-      status: 201,
+      status: 200,
       headers
     })
   } catch (error) {
+    if (error instanceof PrismaClientKnownRequestError) {
+      return NextResponse.json({ message: 'El correo ya se encuentra registrado' }, {
+        status: 500
+      })
+    }
+
     if (error instanceof Error) {
       return NextResponse.json({ message: error.message }, {
         status: 500

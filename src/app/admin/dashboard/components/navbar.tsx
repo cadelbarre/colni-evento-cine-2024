@@ -1,7 +1,6 @@
 import { twMerge } from 'tailwind-merge'
 import { useAuthStore } from '../store/auth-store'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 
 const navigation = [
   {

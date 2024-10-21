@@ -36,7 +36,7 @@ export default function Table ({
 
   return (
     <>
-      <div className='flex items-end justify-between'>
+      <div className='flex flex-col md:flex-row items-center md:items-end justify-between'>
         <div className='flex items-center space-x-6'>
           <label className='flex flex-col'>
             Buscador
@@ -61,11 +61,11 @@ export default function Table ({
         </div>
 
         <div>
-          <p className='text-sm font-semibold'>Total de registros: {data.length}</p>
+          <p className='text-sm font-semibold mt-4 md:mt-0'>Total de registros: {data.length}</p>
         </div>
       </div>
 
-      <div className='mt-10 shadow-sm border rounded-lg overflow-x-auto'>
+      <div className='mt-6 md:mt-10 shadow-sm border rounded-lg overflow-x-auto'>
         <table className='w-full table-auto text-sm text-left'>
           <thead className='bg-blue-800 text-white font-medium border-b'>
             <tr>

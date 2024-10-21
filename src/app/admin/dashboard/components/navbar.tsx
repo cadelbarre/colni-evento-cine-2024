@@ -25,7 +25,7 @@ export default function Navbar ({ className }: { className: string }): JSX.Eleme
 
   return (
     <nav
-      className={twMerge('w-screen h-20 border-r bg-white space-y-8', className)}
+      className={twMerge('h-20 border-r bg-white space-y-8', className)}
     >
       <div className='flex flex-row h-full items-center justify-between px-4'>
 

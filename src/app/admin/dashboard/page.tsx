@@ -36,7 +36,7 @@ export default function Dashboard (): JSX.Element {
             </p>
             <div className='grid place-content-center'>
               <svg className='spinner' viewBox='0 0 50 50'>
-                <circle className='path' cx='25' cy='25' r='20' fill='none' stroke-width='5' />
+                <circle className='path' cx='25' cy='25' r='20' fill='none' strokeWidth='5' />
               </svg>
             </div>
           </div>
@@ -46,9 +46,9 @@ export default function Dashboard (): JSX.Element {
   }
 
   return (
-    <main className='grid grid-cols-12 w-full'>
+    <main className='flex flex-col w-full'>
       <Navbar className='col-span-2' />
-      <div className='p-8 col-span-10 overflow-y-auto h-screen'>
+      <div className='p-4 md:p-8 col-span-10 overflow-y-auto h-screen'>
         {
             isLoading
               ? <SkeletonTable />

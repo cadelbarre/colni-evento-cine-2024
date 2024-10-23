@@ -1,6 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 import useSWR, { Fetcher } from 'swr'
+import { useRouter } from 'next/navigation'
 
 import { useAuthStore } from './store/auth-store'
 import { UserData } from '@/types/user'
@@ -8,7 +9,6 @@ import { UserData } from '@/types/user'
 import Navbar from './components/navbar'
 import Table from './components/table'
 import SkeletonTable from './components/skeleton-table'
-import { useRouter } from 'next/navigation'
 
 const fetcher: Fetcher<UserData[], string> = async (...args) => await fetch(...args).then(async res => await res.json())
 

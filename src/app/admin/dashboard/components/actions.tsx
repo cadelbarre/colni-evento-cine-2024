@@ -1,14 +1,16 @@
 'use client'
 import { toast } from 'sonner'
-import { UserData } from '@/types/user'
+import { KeyedMutator } from 'swr'
+import swal from 'sweetalert'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import {
   ChevronDownIcon,
   PencilIcon,
   TrashIcon
 } from '@heroicons/react/16/solid'
-import { KeyedMutator } from 'swr'
-import swal from 'sweetalert'
+
+import { UserData } from '@/types/user'
+import { sendEmail } from '@/app/components/form'
 
 export default function Actions ({ user, mutate }: { user: UserData, mutate: KeyedMutator<UserData[]> }): JSX.Element {
   const showWarning = async (action: 'edit' | 'delete'): Promise<void> => {
@@ -67,6 +69,12 @@ export default function Actions ({ user, mutate }: { user: UserData, mutate: Key
         anchor='bottom end'
         className='w-52 origin-top-right rounded-xl border border-gray-300 bg-white p-1 text-sm/6 text-gray-600 transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0'
       >
+        <MenuItem>
+          <button onClick={async () => await sendEmail(user)} className='group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-blue-100'>
+            <PencilIcon className='size-4 fill-gray-600' />
+            Enviar correo
+          </button>
+        </MenuItem>
         <MenuItem>
           <button onClick={async () => await showWarning('edit')} className='group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-blue-100'>
             <PencilIcon className='size-4 fill-gray-600' />

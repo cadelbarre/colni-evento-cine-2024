@@ -20,6 +20,29 @@ const INITIAL_VALUES = {
   allergies: ''
 }
 
+export const sendEmail = async (body: FieldValuesTypes): Promise<void> => {
+  const data = {
+    service_id: 'service_vjt65x6',
+    template_id: 'template_j77o7yp',
+    user_id: 'IF0IZ6pmHpB4Jw65s',
+    template_params: {
+      ...body,
+      reply_to: 'colegioneurointervencionismo@gmail.com',
+      fecha: new Date().toLocaleString()
+    }
+  }
+
+  await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(async () => {
+    await swal('Registrado!', 'Se ha enviado un correo con la confirmación de la inscripción al evento. Siga los pasos que se indican para completar el proceso.', 'success')
+  })
+}
+
 export default function Form (): JSX.Element {
   const {
     handleSubmit,
@@ -44,7 +67,8 @@ export default function Form (): JSX.Element {
 
     if (body.ok) {
       toast.success('Usuario registrado exitosamente')
-      await swal('Registrado!', 'Se ha enviado un correo con la confirmación de la inscripción al evento. Siga los pasos que se indican para completar el proceso.', 'success')
+      await sendEmail(data)
+
       reset()
     } else {
       const json = await body?.json()

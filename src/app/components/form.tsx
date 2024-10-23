@@ -39,7 +39,7 @@ export const sendEmail = async (body: FieldValuesTypes): Promise<void> => {
     },
     body: JSON.stringify(data)
   }).then(async () => {
-    await swal('Registrado!', 'Se ha enviado un correo con la confirmación de la inscripción al evento. Siga los pasos que se indican para completar el proceso.', 'success')
+    await swal('Correo Enviado!', 'Se ha enviado un correo con la confirmación de la inscripción al evento. Siga los pasos que se indican para completar el proceso.', 'success')
   })
 }
 
@@ -68,7 +68,6 @@ export default function Form (): JSX.Element {
     if (body.ok) {
       toast.success('Usuario registrado exitosamente')
       await sendEmail(data)
-
       reset()
     } else {
       const json = await body?.json()

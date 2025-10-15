@@ -1,37 +1,64 @@
-import Link from 'next/link'
-import { LeftSide, Form } from './components'
+"use client";
+import { useId } from "react";
+import { useTranslation } from "react-i18next";
+import "../utils/i18n";
 
-export default function Home (): JSX.Element {
+import { LeftSide, Form } from "./components";
+import Language from "./components/languages";
+
+export default function Home(): JSX.Element {
+  const { t } = useTranslation();
+  const separatorId = useId();
+
   return (
-    <main className='w-full flex'>
-
+    <main className="w-full flex">
       <LeftSide />
-      <div className='flex-1 flex items-start justify-center h-screen overflow-y-auto pb-20 pt-10'>
 
-        <div className='w-full max-w-lg space-y-8 px-6 bg-white text-gray-600 sm:px-0'>
+      <section
+        className="flex-1 flex items-start justify-center h-screen overflow-y-auto"
+        style={{
+          background:
+            "linear-gradient(360deg,rgba(51, 51, 51, 1) 0%, rgba(0, 0, 0, 1) 100%)",
+        }}
+      >
+        <div className="w-full max-w-lg space-y-8  text-gray-600 sm:px-0 pb-20">
+          <section className="px-6">
+            <div className="relative">
+              <div aria-label="dragon" className="relative min-h-52" role="img">
+                <img
+                  aria-label="dragon"
+                  src="/dragon.webp"
+                  loading="lazy"
+                  className="absolute bottom-0 mx-auto object-cover z-10"
+                />
 
-          <div className=''>
-
-            <img src='https://colni.org/wp-content/uploads/2024/02/logo-colni.webp' width={150} loading='lazy' className='lg:hidden mx-auto' />
-            <div className='flex justify-between items-center'>
-              <div className='mt-5 space-y-2'>
-                <h3 className='text-gray-800 text-2xl font-bold sm:text-3xl text-balance'>Formulario de Incripción - Colni Cine 2024</h3>
-                <p className=''>¡Inscríbete y forma parte de la magia de &quot;Cine el Origen&quot;!</p>
+                <img
+                  aria-label="titulo formulario"
+                  src="/game-title.webp"
+                  loading="lazy"
+                  className="absolute bottom-0 mx-auto object-cover z-10"
+                />
               </div>
-              <Link href='/admin' className='shadow grid place-content-center ml-2 px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg hover:-translate-y-1 transition-transform'>
-                <svg width='24px' height='24px' strokeWidth='1.5' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' color='currentColor'><path d='M16 12H17.4C17.7314 12 18 12.2686 18 12.6V19.4C18 19.7314 17.7314 20 17.4 20H6.6C6.26863 20 6 19.7314 6 19.4V12.6C6 12.2686 6.26863 12 6.6 12H8M16 12V8C16 6.66667 15.2 4 12 4C8.8 4 8 6.66667 8 8V12M16 12H8' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /></svg>
-              </Link>
-            </div>
-          </div>
 
-          <div className='relative'>
-            <span className='block w-full h-px bg-slate-300' />
-          </div>
+              <article className="flex justify-between items-center h-full mt-3 mb-6">
+                <div className="mt-5 space-y-1 relative z-20">
+                  <h3 className="text-gray-50 text-3xl font-bold sm:text-4xl text-balance">
+                    {t("title")}
+                  </h3>
+                  <p className="text-gray-300">{t("subtitle")}</p>
+                </div>
+              </article>
+              <Language />
+            </div>
+
+            <div className="relative pt-6" id={`separador-${separatorId}`}>
+              <span className="block w-full h-px bg-slate-600" />
+            </div>
+          </section>
 
           <Form />
-
         </div>
-      </div>
+      </section>
     </main>
-  )
+  );
 }

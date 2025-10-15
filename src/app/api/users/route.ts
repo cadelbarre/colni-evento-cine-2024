@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 // import sgMail from '@sendgrid/mail'
-import { prisma } from '@/utils/prisma'
+import { prisma } from "@/utils/prisma";
 // import { UserData } from '@/types/user'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 // export async function sendEmail (user: UserData): Promise<{ statusEmail: number, headers: HeadersInit | undefined, error: Error | null }> {
 //   await sgMail.setApiKey(process.env.SENGRID_API_KEY ?? '')
@@ -72,96 +72,115 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 //   }
 // }
 
-export async function POST (request: Request): Promise<NextResponse | undefined> {
+export async function POST(
+  request: Request,
+): Promise<NextResponse | undefined> {
   try {
-    const body = await request.json()
+    const body = await request.json();
 
     const created = await prisma.user.create({
       data: {
         ...body,
-        payment: false
-      }
-    })
+        payment: false,
+      },
+    });
 
     return NextResponse.json(created, {
-      status: 200
-    })
+      status: 200,
+    });
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
-      return NextResponse.json({ message: 'El correo ya se encuentra registrado' }, {
-        status: 500
-      })
+      return NextResponse.json(
+        { message: "El correo ya se encuentra registrado" },
+        {
+          status: 500,
+        },
+      );
     }
 
     if (error instanceof Error) {
-      return NextResponse.json({ message: error.message }, {
-        status: 500
-      })
+      return NextResponse.json(
+        { message: error.message },
+        {
+          status: 500,
+        },
+      );
     }
   }
 }
 
-export async function GET (): Promise<NextResponse | undefined> {
+export async function GET(): Promise<NextResponse | undefined> {
   try {
-    const created = await prisma.user.findMany()
+    const created = await prisma.user.findMany();
 
     return NextResponse.json(created, {
-      status: 200
-    })
+      status: 200,
+    });
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({ message: error.message }, {
-        status: 500
-      })
+      return NextResponse.json(
+        { message: error.message },
+        {
+          status: 500,
+        },
+      );
     }
   }
 }
 
-export async function DELETE (request: Request): Promise<NextResponse | undefined> {
+export async function DELETE(
+  request: Request,
+): Promise<NextResponse | undefined> {
   try {
-    const body = await request.json()
+    const body = await request.json();
 
     const created = await prisma.user.delete({
       where: {
         name: body.name,
-        email: body.email
-      }
-    })
+        email: body.email,
+      },
+    });
 
     return NextResponse.json(created, {
-      status: 200
-    })
+      status: 200,
+    });
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({ message: error.message }, {
-        status: 500
-      })
+      return NextResponse.json(
+        { message: error.message },
+        {
+          status: 500,
+        },
+      );
     }
   }
 }
 
-export async function PUT (request: Request): Promise<NextResponse | undefined> {
+export async function PUT(request: Request): Promise<NextResponse | undefined> {
   try {
-    const body = await request.json()
+    const body = await request.json();
 
     const created = await prisma.user.update({
       data: {
-        payment: body.payment
+        payment: body.payment,
       },
       where: {
         name: body.name,
-        email: body.email
-      }
-    })
+        email: body.email,
+      },
+    });
 
     return NextResponse.json(created, {
-      status: 200
-    })
+      status: 200,
+    });
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({ message: error.message }, {
-        status: 500
-      })
+      return NextResponse.json(
+        { message: error.message },
+        {
+          status: 500,
+        },
+      );
     }
   }
 }

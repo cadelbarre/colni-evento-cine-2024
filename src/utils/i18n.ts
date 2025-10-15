@@ -3,9 +3,9 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const esTranslations = {
-  title: "Formulario de Incripción - Colni Cine 2025",
+  title: "Formulario de Pre-incripción - Colni Cine 2025",
   subtitle:
-    '¡Inscríbete y forma parte de la magia de "El Desafío Neurovascular"!',
+    '¡Pre-inscríbete y forma parte de la magia de "El Desafío Neurovascular"!',
   fullName: "Nombre Completo",
   email: "Correo Electrónico",
   cellphone: "Celular",
@@ -18,9 +18,9 @@ const esTranslations = {
 };
 
 const enTranslations = {
-  title: "Registration Form - Colni Cine 2025",
+  title: "Pre-registration Form - Colni Cine 2025",
   subtitle:
-    'Sign Up and Be Part of the Magic of "The Neurovascular Challenge"!',
+    'Pre-register  and Be Part of the Magic of "The Neurovascular Challenge"!',
   fullName: "Full Name",
   email: "Email",
   cellphone: "Mobile phone number",
